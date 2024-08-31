@@ -207,49 +207,26 @@ public class imagenesPGM {
 		}
 	}
 
-	private static int[][] calcularMedianaBackUp(int[][] matriz, int filas, int columnas, int k) {
-		int[][] res = new int[filas][columnas];
-
-		int count = 0, acum = 0;
-
-		for (int fila = 0; fila < filas; fila++) {
-			for (int col = 0; col < columnas; col++) {
-				for (int fmed = fila - (k / 2) < 0 ? fila : fila - (k / 2); fmed <= (fila + (k / 2) >= filas ? fila
-						: fila + (k / 2)); fmed++) {
-					for (int cmed = col - (k / 2) < 0 ? col : col - (k / 2); cmed <= (col + (k / 2) >= columnas ? col
-							: col + (k / 2)); cmed++) {
-						acum += matriz[fmed][cmed];
-						count++;
-					}
-				}
-				res[fila][col] = acum / count;
-				acum = 0;
-				count = 0;
-			}
-		}
-
-		return res;
-	}
-
 	private static int[][] calcularMediana(int[][] matriz, int filas, int columnas, int k) {
         int height = matriz.length;
         int width = matriz[0].length;
         int[][] result = new int[height][width];
-
+        int offset = k / 2;
         // Para cada píxel en la imagen
-        for (int i = 1; i < height - 1; i++) {
-            for (int j = 1; j < width - 1; j++) {
-                // Extraer la vecindad 3x3
-                int[] neighborhood = new int[9];
+        for (int i = offset; i < height - offset; i++) {
+            for (int j = offset; j < width - offset; j++) {
+                int[] neighborhood = new int[k*k];
                 int index = 0;
-                for (int p = -1; p <= 1; p++) {
-                    for (int l = -1; l <= 1; l++) {
+                for (int p = -offset; p <= offset; p++) {
+                    for (int l = -offset; l <= offset; l++) {
+                    	if(i < 3 && j < 3)
+                    		System.out.println("matriz[" + (i+p) + "]" + "[" + (j + l) + "]" + matriz[i + p][j + l]);
                         neighborhood[index++] = matriz[i + p][j + l];
                     }
                 }
                 // Ordenar la vecindad y encontrar la mediana
                 Arrays.sort(neighborhood);
-                result[i][j] = neighborhood[4];  // La mediana es el elemento central (índice 4)
+                result[i][j] = neighborhood[neighborhood.length / 2];  // La mediana es el elemento central (índice 4)
             }
         }
         
@@ -280,8 +257,11 @@ public class imagenesPGM {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\imagenesPGM\\src\\salt-pgmSalida.pgm";
-		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\imagenesPGM\\src\\salt-pgmSalida23.pgm";
+//		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\ojoSerpiente.pgm";
+//		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\ojoSerpienteFiltroMediana.pgm";
+		
+		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\imagenesPGM\\src\\cat.pgm";
+		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\imagenesPGM\\src\\catFiltroMediana.pgm";
 		PGMtest(3, pathEntrada, pathSalida);
 	}
 
