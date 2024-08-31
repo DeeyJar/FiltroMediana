@@ -213,15 +213,15 @@ public class imagenesPGM {
         int[][] result = new int[height][width];
         int offset = k / 2;
         // Para cada píxel en la imagen
-        for (int i = offset; i < height - offset; i++) {
-            for (int j = offset; j < width - offset; j++) {
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
                 int[] neighborhood = new int[k*k];
                 int index = 0;
                 for (int p = -offset; p <= offset; p++) {
                     for (int l = -offset; l <= offset; l++) {
-                    	if(i < 3 && j < 3)
-                    		System.out.println("matriz[" + (i+p) + "]" + "[" + (j + l) + "]" + matriz[i + p][j + l]);
-                        neighborhood[index++] = matriz[i + p][j + l];
+                    	int neighborRow = Math.min(Math.max(i + p, 0), height - 1);
+                        int neighborCol = Math.min(Math.max(j + l, 0), width - 1);
+                        neighborhood[index++] = matriz[neighborRow][neighborCol];
                     }
                 }
                 // Ordenar la vecindad y encontrar la mediana
@@ -259,10 +259,13 @@ public class imagenesPGM {
 		// TODO Auto-generated method stub
 //		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\ojoSerpiente.pgm";
 //		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\ojoSerpienteFiltroMediana.pgm";
+//		
+		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\tigrePGN.pgm";
+		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\tigrePGNFiltro.pgm";
 		
-		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\imagenesPGM\\src\\cat.pgm";
-		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\imagenesPGM\\src\\catFiltroMediana.pgm";
-		PGMtest(3, pathEntrada, pathSalida);
+//		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\imagenesPGM\\src\\cat.pgm";
+//		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\imagenesPGM\\src\\catFiltroMediana.pgm";
+		PGMtest(5, pathEntrada, pathSalida);
 	}
 
 }
