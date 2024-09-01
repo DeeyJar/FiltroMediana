@@ -1,4 +1,4 @@
-package imagenesPGM;
+package ar.edu.unlam.alumno.mediana;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -124,7 +124,7 @@ public class imagenesPGM {
 		return res;
 	}
 
-	private static int[][] leerPGMP2(String tipo, int filas, int columnas, String pathEntrada) throws IOException {
+	static int[][] leerPGMP2(String tipo, int filas, int columnas, String pathEntrada) throws IOException {
 		try {
 			FileInputStream fis = new FileInputStream(pathEntrada);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
@@ -207,7 +207,7 @@ public class imagenesPGM {
 		}
 	}
 
-	private static int[][] calcularMediana(int[][] matriz, int filas, int columnas, int k) {
+	static int[][] calcularMediana(int[][] matriz, int filas, int columnas, int k) {
         int height = matriz.length;
         int width = matriz[0].length;
         int[][] result = new int[height][width];
@@ -238,19 +238,19 @@ public class imagenesPGM {
 
 		try (PrintWriter writer = new PrintWriter(new FileWriter(pathSalida))) {
 			// Escribir el encabezado del archivo PGM
-			writer.println("P2"); // Identificador del formato P2
+			writer.print("P2\n"); // Identificador del formato P2
 			if (!comentario.equals("")) {
-				writer.println(comentario);
+				writer.print(comentario + "\n");
 			}
-			writer.println(columnas + " " + filas); // Dimensiones de la imagen
-			writer.println(grisMax); // Valor máximo de gris
+			writer.print(columnas + " " + filas + "\n"); // Dimensiones de la imagen
+			writer.print(grisMax + "\n"); // Valor máximo de gris
 
 			// Escribir los datos de los píxeles
 			for (int y = 0; y < filas; y++) {
 				for (int x = 0; x < columnas; x++) {
 					writer.print(matriz[y][x] + " ");
 				}
-				writer.println(); // Nueva línea después de cada fila de píxeles
+				writer.print("\n"); // Nueva línea después de cada fila de píxeles
 			}
 		}
 	}
@@ -260,8 +260,8 @@ public class imagenesPGM {
 //		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\ojoSerpiente.pgm";
 //		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\ojoSerpienteFiltroMediana.pgm";
 //		
-		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\tigrePGN.pgm";
-		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\tigrePGNFiltro.pgm";
+		String pathEntrada = "D:\\Proyectos\\unlam\\FiltroMediana\\assets\\globosFiltro2.pgm";
+		String pathSalida = "D:\\Proyectos\\unlam\\FiltroMediana\\assets\\globosFiltro3.pgm";
 		
 //		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\imagenesPGM\\src\\cat.pgm";
 //		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\imagenesPGM\\src\\catFiltroMediana.pgm";
