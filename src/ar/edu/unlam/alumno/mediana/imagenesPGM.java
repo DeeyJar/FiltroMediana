@@ -1,4 +1,5 @@
 package ar.edu.unlam.alumno.mediana;
+import java.util.Scanner;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -73,7 +74,11 @@ public class imagenesPGM {
 			}
 			temp = temp.substring(0, temp.length() - 1);
 			filas = Integer.parseInt(temp);
-
+			
+			if(k > filas || k > columnas)
+				throw new IOException("La dimension de la ventana supera las dimensiones de la imagen PGM.");
+				
+			
 			// read maxgray
 			c = fin.read();
 			temp = "";
@@ -88,7 +93,7 @@ public class imagenesPGM {
 			int[][] Pixels = new int[filas][columnas];
 
 			Pixels = tipo.equals("P5") ? leerPGMP5(tipo, filas, columnas, pathEntrada, fin)
-					: leerPGMP2(tipo, filas, columnas, pathEntrada);
+					: leerPGMP2(pathEntrada);
 
 			Pixels = calcularMediana(Pixels, filas, columnas, k);
 
@@ -124,15 +129,15 @@ public class imagenesPGM {
 		return res;
 	}
 
-	static int[][] leerPGMP2(String tipo, int filas, int columnas, String pathEntrada) throws IOException {
+	static int[][] leerPGMP2(String pathEntrada) throws IOException {
 		try {
 			FileInputStream fis = new FileInputStream(pathEntrada);
 			BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
 
-			String magicNumber = reader.readLine();
+			reader.readLine();							//type
 
 			// Leer comentarios
-			String line;
+			String line;	
 			while ((line = reader.readLine()).startsWith("#")) {
 				// Es un comentario, ignorar
 			}
@@ -141,7 +146,7 @@ public class imagenesPGM {
 			String[] dimensions = line.split(" ");
 			int width = Integer.parseInt(dimensions[0]);
 			int height = Integer.parseInt(dimensions[1]);
-			int maxGrayValue = Integer.parseInt(reader.readLine());
+			reader.readLine();							//max gray value
 
 			int cantElementos = width * height, count = 0;
 
@@ -257,15 +262,25 @@ public class imagenesPGM {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-//		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\ojoSerpiente.pgm";
-//		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\ojoSerpienteFiltroMediana.pgm";
-//		
-		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\FiltroMediana\\assets\\globos.pgm";
-		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\FiltroMediana\\assets\\globosFiltro.pgm";
 		
-//		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\imagenesPGM\\src\\cat.pgm";
-//		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\imagenesPGM\\src\\catFiltroMediana.pgm";
-		PGMtest(5, pathEntrada, pathSalida);
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Ingrese el tamaño de la ventana del filtro:");
+	    int windowSize = scanner.nextInt();
+	    
+	    //Caso: aplicar filtro sobre una imagen P2 con ruido/noise
+		//String pathEntrada = "FiltroMediana\\assets\\saltPerryOriginal.pgm";		//rutas relativas
+		//String pathSalida = "FiltroMediana\\assets\\saltPerryOriginalOutput.pgm";
+		
+		//Caso: aplicar filtro sobre una imagen P2 con ruido/noise
+		//String pathEntrada = "FiltroMediana\\assets\\cristal.pgm";		
+		//String pathSalida = "FiltroMediana\\assets\\cristalOutput.pgm";
+				
+		//Caso: Al pasar el filtro sobre una imagen sin ruido/noise, esta no es visiblemente modificada.
+		String pathEntrada = "FiltroMediana\\assets\\dog.pgm";
+		String pathSalida = "FiltroMediana\\assets\\dogOutput.pgm";
+		
+		PGMtest(windowSize, pathEntrada, pathSalida);
+		scanner.close();
 	}
 
 }

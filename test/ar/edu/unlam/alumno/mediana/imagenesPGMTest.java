@@ -35,7 +35,7 @@ class imagenesPGMTest {
 				{ 160, 170, 180, 190, 200 }, 
 				{ 210, 220, 230, 240, 250 } };
 		String pathEntrada = "D:\\Proyectos\\unlam\\FiltroMediana\\assets\\testLecturaP2.pgm";
-		int[][] resultado = imagenesPGM.leerPGMP2("P2", 5, 5, pathEntrada);
+		int[][] resultado = imagenesPGM.leerPGMP2(pathEntrada);
 
 		assertArrayEquals(resultado, matrizEsperada);
 	}
