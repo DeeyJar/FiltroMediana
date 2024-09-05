@@ -260,8 +260,8 @@ public class imagenesPGM {
 //		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\ojoSerpiente.pgm";
 //		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\ojoSerpienteFiltroMediana.pgm";
 //		
-		String pathEntrada = "D:\\Proyectos\\unlam\\FiltroMediana\\assets\\globosFiltro2.pgm";
-		String pathSalida = "D:\\Proyectos\\unlam\\FiltroMediana\\assets\\globosFiltro3.pgm";
+		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\FiltroMediana\\assets\\globos.pgm";
+		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\FiltroMediana\\assets\\globosFiltro.pgm";
 		
 //		String pathEntrada = "D:\\Unlam\\ProgramacionAvanzada\\imagenesPGM\\src\\cat.pgm";
 //		String pathSalida = "D:\\Unlam\\ProgramacionAvanzada\\imagenesPGM\\src\\catFiltroMediana.pgm";
